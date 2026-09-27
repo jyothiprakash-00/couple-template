@@ -4470,6 +4470,17 @@
                         </div>
                     `;
                 } else if (activeSec.id === 'timeline') {
+                    if (!curr.timeline || curr.timeline.length === 0) {
+                        curr.timeline = curr.occasion === 'Birthday' ? [
+                            { date: 'Sep 14, 2023', title: 'First Coffee Date', desc: 'The start of our beautiful journey.' },
+                            { date: 'Nov 25, 2023', title: 'Your Birthday Party', desc: 'Cake, laughter, and endless talks.' },
+                            { date: 'May 18, 2024', title: 'Weekend Cabin Getaway', desc: 'Cozy fireplaces and starry skies.' }
+                        ] : [
+                            { date: 'Feb 14, 2022', title: 'The First Stargazing Evening', desc: 'Where our eyes met and time stopped.' },
+                            { date: 'Aug 10, 2023', title: 'Paris Sunset Trip', desc: 'Walking hand in hand along the Seine.' },
+                            { date: 'Dec 31, 2024', title: 'New Year Candlelight Promise', desc: 'Whispering dreams of our future together.' }
+                        ];
+                    }
                     panel.innerHTML = `
                         <div class="form-group">
                             <label class="form-label">Timeline Section Title</label>
@@ -4484,9 +4495,9 @@
                             ${(curr.timeline || []).map((t, tIdx) => `
                                 <div style="background:var(--bg-secondary); padding:12px; border-radius:12px; border:1px solid var(--border-color); margin-bottom:10px; position:relative;">
                                     <button class="btn-icon btn-icon-danger" style="position:absolute; top:8px; right:8px;" onclick="deleteTimelineItem(${tIdx})">✕</button>
-                                    <input type="text" class="form-input" style="margin-bottom:6px; font-weight:600;" value="${t.date}" placeholder="Date / Period" oninput="updateTimelineItem(${tIdx}, 'date', this.value)">
-                                    <input type="text" class="form-input" style="margin-bottom:6px;" value="${t.title}" placeholder="Milestone Title" oninput="updateTimelineItem(${tIdx}, 'title', this.value)">
-                                    <textarea class="form-textarea" rows="2" placeholder="Description" oninput="updateTimelineItem(${tIdx}, 'desc', this.value)">${t.desc}</textarea>
+                                    <input type="text" class="form-input" style="margin-bottom:6px; font-weight:600;" value="${t.date || ''}" placeholder="Date / Period" oninput="updateTimelineItem(${tIdx}, 'date', this.value)">
+                                    <input type="text" class="form-input" style="margin-bottom:6px;" value="${t.title || ''}" placeholder="Milestone Title" oninput="updateTimelineItem(${tIdx}, 'title', this.value)">
+                                    <textarea class="form-textarea" rows="2" placeholder="Description" oninput="updateTimelineItem(${tIdx}, 'desc', this.value)">${t.desc || ''}</textarea>
                                 </div>
                             `).join('')}
                             <button class="btn btn-secondary btn-sm" onclick="addTimelineItem()">+ Add Milestone</button>
