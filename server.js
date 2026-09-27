@@ -708,10 +708,10 @@ app.get('/{*splat}', (req, res) => {
 });
 
 // Start Express Server
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
     console.log(`=======================================================`);
-    console.log(`🚀 LoveSurprise Server & Database is live!`);
-    console.log(`🌐 App URL: http://localhost:${PORT}`);
-    console.log(`🗄️ Database API: http://localhost:${PORT}/api/surprises`);
+    console.log(`🚀 LoveSurprise Server & Database is live on port ${PORT}!`);
+    console.log(`🌐 App URL: http://0.0.0.0:${PORT}`);
+    console.log(`🗄️ Database API: http://0.0.0.0:${PORT}/api/surprises`);
     console.log(`=======================================================`);
 });
