@@ -4961,7 +4961,26 @@
         }
 
         function updateCurrentData(key, val) {
-            APP_STATE.currentSurprise[key] = val;
+            const curr = APP_STATE.currentSurprise;
+            curr[key] = val;
+
+            if (key === 'boyfriendName') {
+                if (!curr.letter) curr.letter = {};
+                if (curr.occasion === 'Birthday') {
+                    curr.letter.salutation = `Happy Birthday ${val || 'Alex'}! 🎉`;
+                } else {
+                    curr.letter.salutation = `Dearest ${val || 'Alexander'},`;
+                }
+            }
+            if (key === 'yourName') {
+                if (!curr.letter) curr.letter = {};
+                if (curr.occasion === 'Birthday') {
+                    curr.letter.signature = `With all my love, ${val || 'Emma'} ❤️`;
+                } else {
+                    curr.letter.signature = `Forever Yours, ${val || 'Sophia'} ❤️`;
+                }
+            }
+
             updateLivePreviewIframe();
         }
         function updateOccasion(val) {
@@ -5878,10 +5897,10 @@
                         <section class="gen-section step-section ${getStepClass('letter')}" id="section-letter">
                             <div class="gen-letter-box">
                                 <div style="text-align:center; font-size:2rem; margin-bottom:16px;">💌</div>
-                                <div class="gen-letter-salutation">${(data.letter && data.letter.salutation) ? data.letter.salutation : 'Dearest Alexander,'}</div>
+                                <div class="gen-letter-salutation">${(data.letter && data.letter.salutation) ? data.letter.salutation : (data.occasion === 'Birthday' ? 'Happy Birthday ' + (data.boyfriendName || 'Alex') + '! 🎉' : 'Dearest ' + (data.boyfriendName || 'Alexander') + ',')}</div>
                                 ${((data.letter && data.letter.paragraphs && data.letter.paragraphs.length > 0) ? data.letter.paragraphs : ['From the moment we met under the starlit canopy, I knew my heart had found its forever home.', 'Every smile, every shared adventure, and every quiet evening with you has made my world complete.']).map(p => `<p class="gen-letter-p">${p}</p>`).join('')}
                                 ${(data.letter && data.letter.highlight) ? `<div class="gen-letter-highlight">"${data.letter.highlight}"</div>` : ''}
-                                <div class="gen-letter-sig">${(data.letter && data.letter.signature) ? data.letter.signature : 'Forever & Always, Sophia 💍'}</div>
+                                <div class="gen-letter-sig">${(data.letter && data.letter.signature) ? data.letter.signature : (data.occasion === 'Birthday' ? 'With all my love, ' + (data.yourName || 'Emma') + ' ❤️' : 'Forever Yours, ' + (data.yourName || 'Sophia') + ' ❤️')}</div>
                             </div>
                             ${getNextButtonHtml('letter')}
                         </section>
