@@ -1,0 +1,4 @@
+node_modules/
+*.log
+surprises.db
+.DS_Store
