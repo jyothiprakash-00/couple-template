@@ -1658,7 +1658,7 @@
         /* Toast / Snackbar Notifications */
         .toast {
             position: fixed;
-            top: 50%;
+            bottom: 20%;
             left: 50%;
             transform: translate(-50%, -50%) scale(0.9);
             background: rgba(30, 24, 22, 0.95);
@@ -1666,7 +1666,7 @@
             -webkit-backdrop-filter: blur(16px);
             color: #ffffff;
             padding: 9px 20px;
-            height: auto;
+            height: fit-content;
             min-height: 0;
             border-radius: 50px;
             font-family: var(--font-body, 'Manrope', sans-serif);
@@ -4418,14 +4418,26 @@
                         </div>
                     `;
                 } else if (activeSec.id === 'letter') {
+                    if (!curr.letter) {
+                        curr.letter = {
+                            salutation: 'Dearest Alexander,',
+                            paragraphs: [
+                                'From the moment we met under the starlit canopy, I knew my heart had found its forever home.',
+                                'Every smile, every shared adventure, and every quiet evening with you has made my world complete.'
+                            ],
+                            highlight: 'I want to spend every sunrise and sunset loving you.',
+                            signature: 'Forever & Always, Sophia 💍'
+                        };
+                    }
+                    const letter = curr.letter;
                     panel.innerHTML = `
                         <div class="form-group">
-                            <label class="form-label">Letter Salutation</label>
-                            <input type="text" class="form-input" value="${curr.letter.salutation}" oninput="updateLetterData('salutation', this.value)">
+                            <label class="form-label">Letter Salutation (e.g. Dearest Alexander,)</label>
+                            <input type="text" class="form-input" value="${letter.salutation || ''}" oninput="updateLetterData('salutation', this.value)">
                         </div>
                         <div class="form-group">
                             <label class="form-label">Letter Paragraphs</label>
-                            ${curr.letter.paragraphs.map((p, pIdx) => `
+                            ${(letter.paragraphs || []).map((p, pIdx) => `
                                 <div style="display:flex; gap:6px; margin-bottom:6px;">
                                     <textarea class="form-textarea" rows="2" oninput="updateParagraph(${pIdx}, this.value)">${p}</textarea>
                                     <button class="btn-icon btn-icon-danger" onclick="deleteParagraph(${pIdx})">✕</button>
@@ -4435,11 +4447,11 @@
                         </div>
                         <div class="form-group">
                             <label class="form-label">Highlight Quote</label>
-                            <textarea class="form-textarea" rows="3" oninput="updateLetterData('highlight', this.value)">${curr.letter.highlight}</textarea>
+                            <textarea class="form-textarea" rows="3" oninput="updateLetterData('highlight', this.value)">${letter.highlight || ''}</textarea>
                         </div>
                         <div class="form-group">
-                            <label class="form-label">Letter Signature</label>
-                            <input type="text" class="form-input" value="${curr.letter.signature}" oninput="updateLetterData('signature', this.value)">
+                            <label class="form-label">Letter Signature (e.g. Forever & Always, Sophia 💍)</label>
+                            <input type="text" class="form-input" value="${letter.signature || ''}" oninput="updateLetterData('signature', this.value)">
                         </div>
                         <div style="margin-top:24px; padding-top:16px; border-top:1px solid var(--border-light);">
                             <button class="btn btn-primary" style="width:100%;" onclick="submitTabAndGoNext('content')">Save & Continue to Style →</button>
@@ -4947,20 +4959,37 @@
             updateLivePreviewIframe();
         }
         function updateLetterData(key, val) {
+            if (!APP_STATE.currentSurprise.letter) {
+                APP_STATE.currentSurprise.letter = { salutation: 'Dearest Alexander,', paragraphs: [], highlight: '', signature: '' };
+            }
             APP_STATE.currentSurprise.letter[key] = val;
             updateLivePreviewIframe();
         }
         function addParagraph() {
+            if (!APP_STATE.currentSurprise.letter) {
+                APP_STATE.currentSurprise.letter = { salutation: 'Dearest Alexander,', paragraphs: [], highlight: '', signature: '' };
+            }
+            if (!APP_STATE.currentSurprise.letter.paragraphs) {
+                APP_STATE.currentSurprise.letter.paragraphs = [];
+            }
             APP_STATE.currentSurprise.letter.paragraphs.push('New paragraph line...');
             updateEditorFormPanel();
             updateLivePreviewIframe();
         }
         function updateParagraph(idx, val) {
+            if (!APP_STATE.currentSurprise.letter) {
+                APP_STATE.currentSurprise.letter = { salutation: 'Dearest Alexander,', paragraphs: [], highlight: '', signature: '' };
+            }
+            if (!APP_STATE.currentSurprise.letter.paragraphs) {
+                APP_STATE.currentSurprise.letter.paragraphs = [];
+            }
             APP_STATE.currentSurprise.letter.paragraphs[idx] = val;
             updateLivePreviewIframe();
         }
         function deleteParagraph(idx) {
-            APP_STATE.currentSurprise.letter.paragraphs.splice(idx, 1);
+            if (APP_STATE.currentSurprise.letter && APP_STATE.currentSurprise.letter.paragraphs) {
+                APP_STATE.currentSurprise.letter.paragraphs.splice(idx, 1);
+            }
             updateEditorFormPanel();
             updateLivePreviewIframe();
         }
@@ -5812,10 +5841,10 @@
                         <section class="gen-section step-section ${getStepClass('letter')}" id="section-letter">
                             <div class="gen-letter-box">
                                 <div style="text-align:center; font-size:2rem; margin-bottom:16px;">💌</div>
-                                <div class="gen-letter-salutation">${data.letter.salutation}</div>
-                                ${(data.letter.paragraphs || []).map(p => `<p class="gen-letter-p">${p}</p>`).join('')}
-                                ${data.letter.highlight ? `<div class="gen-letter-highlight">"${data.letter.highlight}"</div>` : ''}
-                                <div class="gen-letter-sig">${data.letter.signature}</div>
+                                <div class="gen-letter-salutation">${(data.letter && data.letter.salutation) ? data.letter.salutation : 'Dearest Alexander,'}</div>
+                                ${((data.letter && data.letter.paragraphs && data.letter.paragraphs.length > 0) ? data.letter.paragraphs : ['From the moment we met under the starlit canopy, I knew my heart had found its forever home.', 'Every smile, every shared adventure, and every quiet evening with you has made my world complete.']).map(p => `<p class="gen-letter-p">${p}</p>`).join('')}
+                                ${(data.letter && data.letter.highlight) ? `<div class="gen-letter-highlight">"${data.letter.highlight}"</div>` : ''}
+                                <div class="gen-letter-sig">${(data.letter && data.letter.signature) ? data.letter.signature : 'Forever & Always, Sophia 💍'}</div>
                             </div>
                             ${getNextButtonHtml('letter')}
                         </section>
