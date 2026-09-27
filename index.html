@@ -3818,47 +3818,45 @@
         }
 
         async function loadSurpriseById(id, isStandalonePreview = false) {
-            // First check local database cache
-            const globalDb = JSON.parse(localStorage.getItem('everly_local_projects') || '{}');
-            if (globalDb[id]) {
-                const loadedConfig = globalDb[id];
+            let loadedConfig = null;
+
+            // 1. Fetch fresh project configuration from SQLite Database API first
+            try {
+                const res = await fetch(`/api/surprises/${id}`);
+                const json = await res.json();
+                if (json.success && json.config) {
+                    loadedConfig = json.config;
+                }
+            } catch (e) {
+                console.log('Database API offline or unreachable, checking local cache.');
+            }
+
+            // 2. Fallback to local storage cache if server DB is offline
+            if (!loadedConfig) {
+                const globalDb = JSON.parse(localStorage.getItem('everly_local_projects') || '{}');
+                if (globalDb[id]) {
+                    loadedConfig = globalDb[id];
+                }
+            }
+
+            if (loadedConfig) {
                 APP_STATE.currentSurprise = loadedConfig;
                 if (loadedConfig.theme) {
                     APP_STATE.activeTheme = loadedConfig.theme;
                 }
+
+                // Cache fresh copy in local storage
+                const globalDb = JSON.parse(localStorage.getItem('everly_local_projects') || '{}');
+                globalDb[id] = loadedConfig;
+                localStorage.setItem('everly_local_projects', JSON.stringify(globalDb));
+
                 if (isStandalonePreview) {
                     renderStandalonePreviewPage(loadedConfig);
                 } else {
                     switchView('editor');
                 }
-                return;
-            }
-
-            // Fetch from backend SQLite Database
-            try {
-                const res = await fetch(`/api/surprises/${id}`);
-                const json = await res.json();
-                if (json.success && json.config) {
-                    const loadedConfig = json.config;
-                    APP_STATE.currentSurprise = loadedConfig;
-                    if (loadedConfig.theme) {
-                        APP_STATE.activeTheme = loadedConfig.theme;
-                    }
-
-                    globalDb[id] = loadedConfig;
-                    localStorage.setItem('everly_local_projects', JSON.stringify(globalDb));
-
-                    if (isStandalonePreview) {
-                        renderStandalonePreviewPage(loadedConfig);
-                    } else {
-                        switchView('editor');
-                    }
-                } else {
-                    showToast('Website project not found in database.');
-                }
-            } catch (e) {
-                console.error('Database fetch error:', e);
-                showToast('Error loading website from database.');
+            } else {
+                showToast('Website project not found in database.');
             }
         }
 
