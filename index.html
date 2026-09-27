@@ -4472,6 +4472,14 @@
                 } else if (activeSec.id === 'timeline') {
                     panel.innerHTML = `
                         <div class="form-group">
+                            <label class="form-label">Timeline Section Title</label>
+                            <input type="text" class="form-input" value="${curr.timelineSectionTitle || 'Our Journey Together'}" oninput="updateCurrentData('timelineSectionTitle', this.value)">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Timeline Section Subtitle</label>
+                            <input type="text" class="form-input" value="${curr.timelineSectionSub || 'Key milestones in our love story'}" oninput="updateCurrentData('timelineSectionSub', this.value)">
+                        </div>
+                        <div class="form-group">
                             <label class="form-label">Story Milestones</label>
                             ${(curr.timeline || []).map((t, tIdx) => `
                                 <div style="background:var(--bg-secondary); padding:12px; border-radius:12px; border:1px solid var(--border-color); margin-bottom:10px; position:relative;">
@@ -4490,6 +4498,14 @@
                 } else if (activeSec.id === 'gallery') {
                     const customPhotos = (curr.memories || []).filter(m => !m.isDummy && !(typeof m.image === 'string' && m.image.includes('images/photo')));
                     panel.innerHTML = `
+                        <div class="form-group">
+                            <label class="form-label">Gallery Section Title</label>
+                            <input type="text" class="form-input" value="${curr.gallerySectionTitle || 'Our Captured Moments'}" oninput="updateCurrentData('gallerySectionTitle', this.value)">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Gallery Section Subtitle</label>
+                            <input type="text" class="form-input" value="${curr.gallerySectionSub || 'Memories frozen in time'}" oninput="updateCurrentData('gallerySectionSub', this.value)">
+                        </div>
                         <div class="form-group">
                             <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
                                 <label class="form-label" style="margin:0;">Uploaded Memory Photos (${customPhotos.length})</label>
@@ -4521,6 +4537,14 @@
                     `;
                 } else if (activeSec.id === 'reasons') {
                     panel.innerHTML = `
+                        <div class="form-group">
+                            <label class="form-label">Reasons Section Title</label>
+                            <input type="text" class="form-input" value="${curr.reasonsSectionTitle || (curr.occasion === 'Birthday' ? 'Reasons Why You Are So Special' : 'Reasons Why I Love You')}" oninput="updateCurrentData('reasonsSectionTitle', this.value)">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Reasons Section Subtitle</label>
+                            <input type="text" class="form-input" value="${curr.reasonsSectionSub || (curr.occasion === 'Birthday' ? 'A few reasons why today is all about celebrating you' : 'Just a few of the million reasons')}" oninput="updateCurrentData('reasonsSectionSub', this.value)">
+                        </div>
                         <div class="form-group">
                             <label class="form-label">Heartfelt Reasons</label>
                             ${(curr.reasons || []).map((r, rIdx) => `
@@ -5910,8 +5934,8 @@
                         ${!hidden.includes('timeline') && data.timeline && data.timeline.length > 0 ? `
                         <section class="gen-section step-section ${getStepClass('timeline')}" id="section-timeline">
                             <div style="text-align: center; margin-bottom: 40px;">
-                                <h2 style="font-size: 2.2rem;">Our Journey Together</h2>
-                                <p style="color:var(--text-muted)">Key milestones in our love story</p>
+                                <h2 style="font-size: 2.2rem;">${data.timelineSectionTitle || 'Our Journey Together'}</h2>
+                                <p style="color:var(--text-muted)">${data.timelineSectionSub || 'Key milestones in our love story'}</p>
                             </div>
                             <div class="gen-timeline">
                                 ${data.timeline.map(t => `
@@ -5933,8 +5957,8 @@
                         ${!hidden.includes('gallery') && memoriesToRender && memoriesToRender.length > 0 ? `
                         <section class="gen-section step-section ${getStepClass('gallery')}" id="section-gallery">
                             <div style="text-align: center; margin-bottom: 40px;">
-                                <h2 style="font-size: 2.2rem;">Our Captured Moments</h2>
-                                <p style="color:var(--text-muted)">Memories frozen in time</p>
+                                <h2 style="font-size: 2.2rem;">${data.gallerySectionTitle || 'Our Captured Moments'}</h2>
+                                <p style="color:var(--text-muted)">${data.gallerySectionSub || 'Memories frozen in time'}</p>
                             </div>
                             <div class="gen-gallery-polaroid">
                                 ${memoriesToRender.map(m => `
@@ -5953,8 +5977,8 @@
                         ${!hidden.includes('reasons') && data.reasons && data.reasons.length > 0 ? `
                         <section class="gen-section step-section ${getStepClass('reasons')}" id="section-reasons">
                             <div style="text-align: center; margin-bottom: 40px;">
-                                <h2 style="font-size: 2.2rem;">Reasons Why I Love You</h2>
-                                <p style="color:var(--text-muted)">Just a few of the million reasons</p>
+                                <h2 style="font-size: 2.2rem;">${data.reasonsSectionTitle || (data.occasion === 'Birthday' ? 'Reasons Why You Are So Special' : 'Reasons Why I Love You')}</h2>
+                                <p style="color:var(--text-muted)">${data.reasonsSectionSub || (data.occasion === 'Birthday' ? 'A few reasons why today is all about celebrating you' : 'Just a few of the million reasons')}</p>
                             </div>
                             <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(260px, 1fr)); gap:16px;">
                                 ${data.reasons.map((r, i) => `
