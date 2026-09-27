@@ -2055,7 +2055,9 @@
 
         /* Mobile & Smartphone Breakpoint (<= 768px) */
         @media (max-width: 768px) {
-            html, body {
+
+            html,
+            body {
                 width: 100% !important;
                 max-width: 100% !important;
                 overflow-x: hidden !important;
@@ -2433,7 +2435,7 @@
         <div id="view-editor" class="app-view">
             <div class="editor-container">
                 <!-- Editor Top Bar -->
-                <div class="editor-toolbar">
+                <!-- <div class="editor-toolbar">
                     <div class="editor-title-area">
                         <button class="btn btn-ghost btn-sm" onclick="switchView('dashboard')">← Dashboard</button>
                         <input type="text" id="editor-project-name" class="editor-project-input"
@@ -2458,12 +2460,14 @@
                         <button class="btn btn-primary btn-sm" onclick="saveSurpriseToDatabase()">Save &
                             Publish</button>
                     </div>
-                </div>
+                </div> -->
 
                 <!-- Mobile Editor Tab Bar (Form vs Preview) -->
                 <div class="mobile-editor-tabs" id="mobile-editor-tab-bar">
-                    <div class="mobile-editor-tab active" onclick="switchMobileEditorTab('edit', this)">✏️ Edit Form</div>
-                    <div class="mobile-editor-tab" onclick="switchMobileEditorTab('preview', this)">👁️ Live Preview</div>
+                    <div class="mobile-editor-tab active" onclick="switchMobileEditorTab('edit', this)">✏️ Edit Form
+                    </div>
+                    <div class="mobile-editor-tab" onclick="switchMobileEditorTab('preview', this)">👁️ Live Preview
+                    </div>
                 </div>
 
                 <!-- Editor Workspace -->
@@ -2559,7 +2563,8 @@
                             <li>Remove Everly branding</li>
                         </ul>
 
-                        <button class="btn btn-primary" onclick="openUpiQrModal()">Unlock Premium Features (Scan QR / ₹750)</button>
+                        <button class="btn btn-primary" onclick="openUpiQrModal()">Unlock Premium Features (Scan QR /
+                            ₹750)</button>
                     </div>
                 </div>
             </div>
@@ -2719,7 +2724,8 @@
                     <span>💳 Pay via Razorpay Gateway ($9 / ₹750)</span>
                 </button>
                 -->
-                <button class="btn btn-ghost btn-sm" style="margin-top: 4px; color: var(--text-muted);" onclick="closePremiumModal()">Cancel</button>
+                <button class="btn btn-ghost btn-sm" style="margin-top: 4px; color: var(--text-muted);"
+                    onclick="closePremiumModal()">Cancel</button>
             </div>
         </div>
     </div>
@@ -2737,32 +2743,52 @@
             </p>
 
             <!-- QR Code Container -->
-            <div style="background: #ffffff; padding: 16px; border-radius: 20px; display: inline-block; box-shadow: 0 8px 24px rgba(0,0,0,0.08); border: 1px solid var(--border-color); margin-bottom: 16px;">
-                <img id="upi-qr-image" src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=upi%3A%2F%2Fpay%3Fpa%3Deverlystudio%40upi%26pn%3DEverly%2520Studio%26am%3D750%26cu%3DINR" alt="UPI QR Code" style="width: 200px; height: 200px; display: block; border-radius: 8px;">
+            <div
+                style="background: #ffffff; padding: 16px; border-radius: 20px; display: inline-block; box-shadow: 0 8px 24px rgba(0,0,0,0.08); border: 1px solid var(--border-color); margin-bottom: 16px;">
+                <img id="upi-qr-image"
+                    src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=upi%3A%2F%2Fpay%3Fpa%3Deverlystudio%40upi%26pn%3DEverly%2520Studio%26am%3D750%26cu%3DINR"
+                    alt="UPI QR Code" style="width: 200px; height: 200px; display: block; border-radius: 8px;">
             </div>
 
-            <div style="font-size: 1.3rem; font-weight: 700; color: var(--text-heading); margin-bottom: 4px;">₹750 INR</div>
-            <div style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 20px;">UPI ID: <strong style="color: var(--accent-main);" id="upi-id-display">everlystudio@upi</strong></div>
+            <div style="font-size: 1.3rem; font-weight: 700; color: var(--text-heading); margin-bottom: 4px;">₹750 INR
+            </div>
+            <div style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 20px;">UPI ID: <strong
+                    style="color: var(--accent-main);" id="upi-id-display">everlystudio@upi</strong></div>
 
             <!-- Supported Apps Badges -->
-            <div style="display: flex; justify-content: center; gap: 8px; margin-bottom: 24px; font-size: 0.78rem; font-weight: 600; color: var(--text-body); flex-wrap: wrap;">
-                <span style="background: var(--bg-secondary); padding: 4px 10px; border-radius: 20px; border: 1px solid var(--border-light);">🟢 Google Pay</span>
-                <span style="background: var(--bg-secondary); padding: 4px 10px; border-radius: 20px; border: 1px solid var(--border-light);">🟣 PhonePe</span>
-                <span style="background: var(--bg-secondary); padding: 4px 10px; border-radius: 20px; border: 1px solid var(--border-light);">🔵 Paytm</span>
-                <span style="background: var(--bg-secondary); padding: 4px 10px; border-radius: 20px; border: 1px solid var(--border-light);">🟠 BHIM</span>
+            <div
+                style="display: flex; justify-content: center; gap: 8px; margin-bottom: 24px; font-size: 0.78rem; font-weight: 600; color: var(--text-body); flex-wrap: wrap;">
+                <span
+                    style="background: var(--bg-secondary); padding: 4px 10px; border-radius: 20px; border: 1px solid var(--border-light);">🟢
+                    Google Pay</span>
+                <span
+                    style="background: var(--bg-secondary); padding: 4px 10px; border-radius: 20px; border: 1px solid var(--border-light);">🟣
+                    PhonePe</span>
+                <span
+                    style="background: var(--bg-secondary); padding: 4px 10px; border-radius: 20px; border: 1px solid var(--border-light);">🔵
+                    Paytm</span>
+                <span
+                    style="background: var(--bg-secondary); padding: 4px 10px; border-radius: 20px; border: 1px solid var(--border-light);">🟠
+                    BHIM</span>
             </div>
 
             <!-- UTR / Payment Verification Form -->
-            <div style="background: var(--bg-secondary); padding: 16px; border-radius: 16px; border: 1px solid var(--border-color); text-align: left; margin-bottom: 20px;">
-                <label class="form-label" style="font-size: 0.82rem; margin-bottom: 6px; font-weight: 600;">Enter 12-Digit UTR / Transaction Ref No.</label>
+            <div
+                style="background: var(--bg-secondary); padding: 16px; border-radius: 16px; border: 1px solid var(--border-color); text-align: left; margin-bottom: 20px;">
+                <label class="form-label" style="font-size: 0.82rem; margin-bottom: 6px; font-weight: 600;">Enter
+                    12-Digit UTR / Transaction Ref No.</label>
                 <div style="display: flex; gap: 8px;">
-                    <input type="text" id="upi-utr-input" class="form-input" placeholder="e.g. 329182749102" style="font-size: 0.9rem;" maxlength="16">
-                    <button class="btn btn-primary btn-sm" style="white-space: nowrap;" onclick="verifyUpiTransaction()">Verify & Unlock ✨</button>
+                    <input type="text" id="upi-utr-input" class="form-input" placeholder="e.g. 329182749102"
+                        style="font-size: 0.9rem;" maxlength="16">
+                    <button class="btn btn-primary btn-sm" style="white-space: nowrap;"
+                        onclick="verifyUpiTransaction()">Verify & Unlock ✨</button>
                 </div>
-                <span style="font-size: 0.74rem; color: var(--text-muted); display: block; margin-top: 6px;">Found in your GPay/PhonePe receipt after payment</span>
+                <span style="font-size: 0.74rem; color: var(--text-muted); display: block; margin-top: 6px;">Found in
+                    your GPay/PhonePe receipt after payment</span>
             </div>
 
-            <button class="btn btn-ghost btn-sm" style="width: 100%; color: var(--text-muted);" onclick="closeUpiQrModal()">Close</button>
+            <button class="btn btn-ghost btn-sm" style="width: 100%; color: var(--text-muted);"
+                onclick="closeUpiQrModal()">Close</button>
         </div>
     </div>
 
@@ -2777,22 +2803,28 @@
             <form onsubmit="handleLoginSubmit(event)">
                 <div class="form-group" style="margin-bottom: 16px;">
                     <label class="form-label">Email Address</label>
-                    <input type="email" id="login-email-input" class="form-input" placeholder="name@example.com" required>
+                    <input type="email" id="login-email-input" class="form-input" placeholder="name@example.com"
+                        required>
                 </div>
 
                 <div class="form-group" style="margin-bottom: 24px;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
                         <label class="form-label" style="margin: 0;">Password</label>
-                        <span style="font-size: 0.78rem; color: var(--accent-main); font-weight: 500; cursor: pointer;" onclick="openForgotModal()">Forgot password?</span>
+                        <span style="font-size: 0.78rem; color: var(--accent-main); font-weight: 500; cursor: pointer;"
+                            onclick="openForgotModal()">Forgot password?</span>
                     </div>
                     <input type="password" id="login-password-input" class="form-input" placeholder="••••••••" required>
                 </div>
 
-                <button type="submit" class="btn btn-primary" style="width: 100%; padding: 12px;" id="login-submit-btn">Log In ✨</button>
+                <button type="submit" class="btn btn-primary" style="width: 100%; padding: 12px;"
+                    id="login-submit-btn">Log In ✨</button>
             </form>
 
             <div style="margin-top: 20px; text-align: center; font-size: 0.88rem; color: var(--text-muted);">
-                Don't have an account? <span style="color: var(--accent-main); font-weight: 600; cursor: pointer; text-decoration: underline;" onclick="switchToRegisterModal()">Register here</span>
+                Don't have an account? <span
+                    style="color: var(--accent-main); font-weight: 600; cursor: pointer; text-decoration: underline;"
+                    onclick="switchToRegisterModal()">Register here</span>
             </div>
         </div>
     </div>
@@ -2808,7 +2840,8 @@
             <form onsubmit="handleRegisterSubmit(event)">
                 <div class="form-group" style="margin-bottom: 14px;">
                     <label class="form-label">Full Name</label>
-                    <input type="text" id="reg-name-input" class="form-input" placeholder="e.g. Jyothi Prakash" required>
+                    <input type="text" id="reg-name-input" class="form-input" placeholder="e.g. Jyothi Prakash"
+                        required>
                 </div>
 
                 <div class="form-group" style="margin-bottom: 14px;">
@@ -2818,29 +2851,38 @@
 
                 <div class="form-group" style="margin-bottom: 14px;">
                     <label class="form-label">Password</label>
-                    <input type="password" id="reg-password-input" class="form-input" placeholder="At least 6 characters" minlength="6" required>
+                    <input type="password" id="reg-password-input" class="form-input"
+                        placeholder="At least 6 characters" minlength="6" required>
                 </div>
 
                 <div class="form-group" style="margin-bottom: 14px;">
                     <label class="form-label">Security Question (For Password Recovery)</label>
-                    <select id="reg-sec-question-select" class="form-input" style="padding: 10px 12px; font-size: 0.88rem;" required>
-                        <option value="What was the name of your first pet?">What was the name of your first pet?</option>
+                    <select id="reg-sec-question-select" class="form-input"
+                        style="padding: 10px 12px; font-size: 0.88rem;" required>
+                        <option value="What was the name of your first pet?">What was the name of your first pet?
+                        </option>
                         <option value="What city were you born in?">What city were you born in?</option>
-                        <option value="What was your favorite childhood movie?">What was your favorite childhood movie?</option>
-                        <option value="What is your favorite romantic song?">What is your favorite romantic song?</option>
+                        <option value="What was your favorite childhood movie?">What was your favorite childhood movie?
+                        </option>
+                        <option value="What is your favorite romantic song?">What is your favorite romantic song?
+                        </option>
                     </select>
                 </div>
 
                 <div class="form-group" style="margin-bottom: 24px;">
                     <label class="form-label">Security Answer</label>
-                    <input type="text" id="reg-sec-answer-input" class="form-input" placeholder="Your secret answer" required>
+                    <input type="text" id="reg-sec-answer-input" class="form-input" placeholder="Your secret answer"
+                        required>
                 </div>
 
-                <button type="submit" class="btn btn-primary" style="width: 100%; padding: 12px;" id="reg-submit-btn">Create Account ✨</button>
+                <button type="submit" class="btn btn-primary" style="width: 100%; padding: 12px;"
+                    id="reg-submit-btn">Create Account ✨</button>
             </form>
 
             <div style="margin-top: 20px; text-align: center; font-size: 0.88rem; color: var(--text-muted);">
-                Already have an account? <span style="color: var(--accent-main); font-weight: 600; cursor: pointer; text-decoration: underline;" onclick="switchToLoginModal()">Log In</span>
+                Already have an account? <span
+                    style="color: var(--accent-main); font-weight: 600; cursor: pointer; text-decoration: underline;"
+                    onclick="switchToLoginModal()">Log In</span>
             </div>
         </div>
     </div>
@@ -2861,14 +2903,18 @@
                 <form onsubmit="handleFetchSecurityQuestionSubmit(event)">
                     <div class="form-group" style="margin-bottom: 24px;">
                         <label class="form-label">Email Address</label>
-                        <input type="email" id="forgot-email-input" class="form-input" placeholder="name@example.com" required>
+                        <input type="email" id="forgot-email-input" class="form-input" placeholder="name@example.com"
+                            required>
                     </div>
 
-                    <button type="submit" class="btn btn-primary" style="width: 100%; padding: 12px;" id="forgot-submit-btn">Verify Account 🔍</button>
+                    <button type="submit" class="btn btn-primary" style="width: 100%; padding: 12px;"
+                        id="forgot-submit-btn">Verify Account 🔍</button>
                 </form>
 
                 <div style="margin-top: 20px; text-align: center; font-size: 0.88rem; color: var(--text-muted);">
-                    Remembered your password? <span style="color: var(--accent-main); font-weight: 600; cursor: pointer; text-decoration: underline;" onclick="switchToLoginModal()">Log In</span>
+                    Remembered your password? <span
+                        style="color: var(--accent-main); font-weight: 600; cursor: pointer; text-decoration: underline;"
+                        onclick="switchToLoginModal()">Log In</span>
                 </div>
             </div>
         </div>
@@ -2883,7 +2929,8 @@
             </div>
 
             <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 20px;">
-                Set a new password for <strong id="reset-target-email-display" style="color: var(--text-heading);">your account</strong>.
+                Set a new password for <strong id="reset-target-email-display" style="color: var(--text-heading);">your
+                    account</strong>.
             </p>
 
             <form onsubmit="handleCompleteResetSubmit(event)">
@@ -2891,15 +2938,18 @@
 
                 <div class="form-group" style="margin-bottom: 16px;">
                     <label class="form-label">New Password</label>
-                    <input type="password" id="new-password-input" class="form-input" placeholder="At least 6 characters" minlength="6" required>
+                    <input type="password" id="new-password-input" class="form-input"
+                        placeholder="At least 6 characters" minlength="6" required>
                 </div>
 
                 <div class="form-group" style="margin-bottom: 24px;">
                     <label class="form-label">Confirm New Password</label>
-                    <input type="password" id="confirm-password-input" class="form-input" placeholder="Repeat new password" minlength="6" required>
+                    <input type="password" id="confirm-password-input" class="form-input"
+                        placeholder="Repeat new password" minlength="6" required>
                 </div>
 
-                <button type="submit" class="btn btn-primary" style="width: 100%; padding: 12px;" id="complete-reset-submit-btn">Save New Password ✨</button>
+                <button type="submit" class="btn btn-primary" style="width: 100%; padding: 12px;"
+                    id="complete-reset-submit-btn">Save New Password ✨</button>
             </form>
         </div>
     </div>
@@ -3770,7 +3820,7 @@
                         return JSON.parse(decompressed);
                     }
                 }
-            } catch (e) {}
+            } catch (e) { }
 
             try {
                 const jsonStr = decodeURIComponent(atob(str).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join(''));
@@ -3985,7 +4035,7 @@
             try {
                 const res = await fetch(`/api/surprises/${id}`, { method: 'DELETE' });
                 const json = await res.json();
-            } catch (e) {}
+            } catch (e) { }
 
             showToast('Project deleted successfully.');
             fetchSurprisesFromDatabase().then(() => renderDashboardProjects());
@@ -4641,7 +4691,7 @@
                         </div>
                     </div>
                     <div style="margin-top:24px; padding-top:16px; border-top:1px solid var(--border-light);">
-                        <button class="btn btn-primary" style="width:100%;" onclick="submitTabAndGoNext('animation')">Save & Complete Section ✨</button>
+                        <button class="btn btn-primary" style="width:100%; font-weight:600; padding:14px; font-size:1rem;" onclick="submitTabAndGoNext('animation')">Save & Publish Website ✨</button>
                     </div>
                 `;
             }
@@ -4953,7 +5003,7 @@
                 input.click();
             }
         }
-        function compressImage(dataUrl, maxWidth = 600, maxHeight = 600, quality = 0.7, callback = () => {}) {
+        function compressImage(dataUrl, maxWidth = 600, maxHeight = 600, quality = 0.7, callback = () => { }) {
             const img = new Image();
             img.onload = function () {
                 let width = img.width;
@@ -4976,7 +5026,7 @@
                 ctx.drawImage(img, 0, 0, width, height);
                 callback(canvas.toDataURL('image/jpeg', quality));
             };
-            img.onerror = function() {
+            img.onerror = function () {
                 callback(dataUrl);
             };
             img.src = dataUrl;
@@ -4996,7 +5046,7 @@
                 const reader = new FileReader();
                 reader.onload = function (e) {
                     const rawDataUrl = e.target.result;
-                    compressImage(rawDataUrl, 600, 600, 0.7, function(dataUrl) {
+                    compressImage(rawDataUrl, 600, 600, 0.7, function (dataUrl) {
                         if (!APP_STATE.currentSurprise.memories) APP_STATE.currentSurprise.memories = [];
 
                         if (replaceTargetIndex >= 0 && APP_STATE.currentSurprise.memories[replaceTargetIndex]) {
