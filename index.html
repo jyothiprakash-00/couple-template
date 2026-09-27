@@ -4419,15 +4419,27 @@
                     `;
                 } else if (activeSec.id === 'letter') {
                     if (!curr.letter) {
-                        curr.letter = {
-                            salutation: 'Dearest Alexander,',
-                            paragraphs: [
-                                'From the moment we met under the starlit canopy, I knew my heart had found its forever home.',
-                                'Every smile, every shared adventure, and every quiet evening with you has made my world complete.'
-                            ],
-                            highlight: 'I want to spend every sunrise and sunset loving you.',
-                            signature: 'Forever & Always, Sophia 💍'
-                        };
+                        if (curr.occasion === 'Birthday') {
+                            curr.letter = {
+                                salutation: `Happy Birthday ${curr.boyfriendName || 'Alex'}! 🎉`,
+                                paragraphs: [
+                                    'On your special day, I want to remind you how deeply loved and cherished you are.',
+                                    'May this new chapter bring you endless joy, laughter, and all the dreams your heart holds.'
+                                ],
+                                highlight: 'You bring so much light and laughter into my life every single day.',
+                                signature: `With all my love, ${curr.yourName || 'Emma'} ❤️`
+                            };
+                        } else {
+                            curr.letter = {
+                                salutation: `Dearest ${curr.boyfriendName || 'Alexander'},`,
+                                paragraphs: [
+                                    'From the moment we met under the starlit canopy, I knew my heart had found its forever home.',
+                                    'Every smile, every shared adventure, and every quiet evening with you has made my world complete.'
+                                ],
+                                highlight: 'I want to spend every sunrise and sunset loving you.',
+                                signature: `Forever & Always, ${curr.yourName || 'Sophia'} 💍`
+                            };
+                        }
                     }
                     const letter = curr.letter;
                     panel.innerHTML = `
@@ -4953,9 +4965,34 @@
             updateLivePreviewIframe();
         }
         function updateOccasion(val) {
-            APP_STATE.currentSurprise.occasion = val;
+            const curr = APP_STATE.currentSurprise;
+            curr.occasion = val;
             const badge = document.getElementById('editor-occasion-badge');
             if (badge) badge.innerText = val.toUpperCase();
+
+            // Set default letter template based on occasion
+            if (val === 'Birthday') {
+                curr.letter = {
+                    salutation: `Happy Birthday ${curr.boyfriendName || 'Alex'}! 🎉`,
+                    paragraphs: [
+                        'On your special day, I want to remind you how deeply loved and cherished you are.',
+                        'May this new chapter bring you endless joy, laughter, and all the dreams your heart holds.'
+                    ],
+                    highlight: 'You bring so much light and laughter into my life every single day.',
+                    signature: `With all my love, ${curr.yourName || 'Emma'} ❤️`
+                };
+            } else if (val === 'Proposal') {
+                curr.letter = {
+                    salutation: `Dearest ${curr.boyfriendName || 'Alexander'},`,
+                    paragraphs: [
+                        'From the moment we met under the starlit canopy, I knew my heart had found its forever home.',
+                        'Every smile, every shared adventure, and every quiet evening with you has made my world complete.'
+                    ],
+                    highlight: 'I want to spend every sunrise and sunset loving you.',
+                    signature: `Forever & Always, ${curr.yourName || 'Sophia'} 💍`
+                };
+            }
+            updateEditorFormPanel();
             updateLivePreviewIframe();
         }
         function updateLetterData(key, val) {
